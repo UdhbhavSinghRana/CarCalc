@@ -1,7 +1,8 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException, UseInterceptors } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { User } from './user.entity';
+import { SerializeInterceptor } from 'src/interceptors/serialize.interceptor';
 
 @Injectable()
 export class UsersService {
@@ -17,7 +18,7 @@ export class UsersService {
         const user =  this.repo.findOneBy({ id });
 
         if (!user) {
-            throw new Error("User does not exist");
+            throw new NotFoundException("user not found");
         }
 
         return user;
@@ -27,7 +28,7 @@ export class UsersService {
         const user =  await this.repo.find({ where: { email }});
 
         if (!user || user.length == 0) {
-            throw new Error("User does not exist");
+            throw new NotFoundException("user not found");
         }
 
         return user;
@@ -37,7 +38,7 @@ export class UsersService {
         const user = await this.findOne(id);
 
         if (!user) {
-            throw new Error("User does not exist");
+            throw new NotFoundException("user not found");
         }
 
         Object.assign(user, attrs);
@@ -49,7 +50,7 @@ export class UsersService {
         const user = await this.findOne(id);
 
         if (!user) {
-            throw new Error("User does not exist");
+            throw new NotFoundException("user not found");
         }
 
         return await this.repo.delete(user);
