@@ -1,6 +1,6 @@
 import { Injectable, NotFoundException, UseInterceptors } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { Not, Repository } from 'typeorm';
 import { User } from './user.entity';
 
 @Injectable()
@@ -14,6 +14,7 @@ export class UsersService {
     }
 
     findOne(id: number) {
+        if (id === null) throw new NotFoundException("User not signed in");
         const user =  this.repo.findOneBy({ id });
 
         if (!user) {
