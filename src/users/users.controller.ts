@@ -4,6 +4,8 @@ import { UsersService } from './users.service';
 import { User } from './user.entity';
 import { UpdateUserDto } from './dtos/update-user.dto';
 import { SerializeInterceptor } from 'src/interceptors/serialize.interceptor';
+import { Serialize } from 'src/interceptors/serialize.interceptor';
+import { UserDto } from './dtos/user.dto';
 
 @Controller('auth')
 export class UsersController {
@@ -14,7 +16,7 @@ export class UsersController {
         return this.usersService.create(body.email, body.password);
     }
 
-    @UseInterceptors(SerializeInterceptor)
+    @UseInterceptors(new SerializeInterceptor(UserDto))
     @Get('/:id') 
     findUser(@Param('id') id: number) {
         return this.usersService.findOne(id); // tutorial said to user string
