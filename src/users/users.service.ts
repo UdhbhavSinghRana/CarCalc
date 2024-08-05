@@ -2,7 +2,6 @@ import { Injectable, NotFoundException, UseInterceptors } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { User } from './user.entity';
-import { SerializeInterceptor } from 'src/interceptors/serialize.interceptor';
 
 @Injectable()
 export class UsersService {
@@ -24,14 +23,8 @@ export class UsersService {
         return user;
     }
 
-    async find(email: string) {
-        const user =  await this.repo.find({ where: { email }});
-
-        if (!user || user.length == 0) {
-            throw new NotFoundException("user not found");
-        }
-
-        return user;
+    find(email: string) {
+        return this.repo.find({ where: { email }});
     }
 
     async update(id: number, attrs: Partial<User>) {
