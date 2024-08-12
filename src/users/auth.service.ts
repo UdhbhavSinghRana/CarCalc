@@ -11,6 +11,7 @@ export class AuthService {
 
     async signup(email: string, password: string) {
         const users = await this.usersService.find(email);
+        console.log(users);
 
         if (users.length) {
             throw new BadRequestException("User already exist");
@@ -35,10 +36,11 @@ export class AuthService {
         }
 
         const [salt, storedHash] = user.password.split('.');
-        console.log(salt);
+        console.log(user.password);
+        console.log(password);
 
         const hash = (await scrypt(password, salt, 32)) as Buffer;
-        console.log(hash.toString('hex'));
+        // console.log(hash.toString('hex'));
 
         if (storedHash !== hash.toString('hex')) {
             throw new BadRequestException("Wrong password");

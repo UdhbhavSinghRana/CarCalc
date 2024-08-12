@@ -1,0 +1,5 @@
+Api gateway, lambda, airflow, kubernetes, docker, git cicd pipeline, microfrontend as well as mocroservices for backend,
+react , nestJs, SQL
+python, spark/pyspark
+Jest e2e and 
+unit test cases // done

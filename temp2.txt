@@ -1,0 +1,7 @@
+how is the roi calculated?
+watermark
+how is deduplication dealt with
+how frequency is audience measurement changed?
+how is audience then pinpointed to the usecase (audience portablity)
+audiences vs idlist
+https://nmc.udemy.com/course/nestjs-the-complete-developers-guide/learn/lecture/27443192#overview
